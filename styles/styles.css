@@ -52,6 +52,7 @@ body {
   font-size: 1.1rem;
   color: var(--color-white);
   transition: all 0.4s ease-in-out;
+  overflow-x: hidden;
 }
 
 a {
@@ -209,6 +210,11 @@ section {
   align-items: center;
   justify-content: center;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 .header-content .left-header .image img {
@@ -536,6 +542,7 @@ section {
   display: flex;
   justify-content: center;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .portfolios .portfolio-item .project-content .project-link {
@@ -780,11 +787,40 @@ section {
   font-family: inherit;
   padding: 0.8rem 1.1rem;
   outline: none;
-  border: none;
-  background-color: var(--color-grey-5);
+  border: 1px solid #ffffff;
+  background-color: #ffffff;
   width: 100%;
-  color: var(--color-white);
+  color: #1f2430;
   resize: none;
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact-content-con .right-contact .input-control input::placeholder,
+.contact-content-con .right-contact .input-control textarea::placeholder {
+  color: #5f6673;
+}
+
+.contact-content-con .right-contact .input-control input:focus,
+.contact-content-con .right-contact .input-control textarea:focus {
+  background-color: #ffffff;
+  border-color: rgba(229, 56, 59, 0.7);
+  box-shadow: 0 0 0 3px rgba(229, 56, 59, 0.18);
+}
+
+body:not(.light-mode) .contact-content-con .right-contact .input-control input,
+body:not(.light-mode) .contact-content-con .right-contact .input-control textarea,
+body.light-mode .contact-content-con .right-contact .input-control input,
+body.light-mode .contact-content-con .right-contact .input-control textarea {
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #1f2430 !important;
+}
+
+body:not(.light-mode) .contact-content-con .right-contact .input-control input::placeholder,
+body:not(.light-mode) .contact-content-con .right-contact .input-control textarea::placeholder,
+body.light-mode .contact-content-con .right-contact .input-control input::placeholder,
+body.light-mode .contact-content-con .right-contact .input-control textarea::placeholder {
+  color: #5f6673 !important;
 }
 
 .contact-content-con .right-contact .i-c-2 {
@@ -1199,6 +1235,80 @@ section {
   }
 
 
+}
+
+@media screen and (max-width: 900px) {
+  section {
+    min-height: auto;
+    padding: 4rem 1.5rem;
+  }
+
+  .container {
+    padding: 4rem 1.5rem !important;
+  }
+
+  .header-content .left-header .image {
+    width: min(72vw, 360px) !important;
+    height: min(72vw, 360px) !important;
+    margin: 1rem auto 0 !important;
+  }
+
+  .header-content .right-header {
+    padding-right: 0 !important;
+    width: 100%;
+  }
+
+  .header-content .right-header .name {
+    font-size: 2.1rem !important;
+    line-height: 1.25;
+    text-align: center;
+  }
+
+  .header-content .right-header p {
+    line-height: 1.7rem;
+    text-align: center;
+  }
+
+  .btn-con {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .contact-content-con .left-contact .contact-info .contact-item {
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .controls {
+    top: auto;
+    right: auto;
+    left: 0;
+    bottom: 0;
+    justify-content: center;
+    padding: 0.25rem 0.2rem calc(0.25rem + env(safe-area-inset-bottom));
+  }
+
+  .theme-btn {
+    width: 52px;
+    height: 52px;
+    top: auto;
+    bottom: calc(5rem + env(safe-area-inset-bottom));
+    right: 1rem;
+  }
+
+  .main-content {
+    padding-bottom: 5rem;
+  }
+
+  .main-title h2 {
+    font-size: 2.1rem;
+  }
+
+  .main-title h2 span {
+    font-size: 2.1rem;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */
