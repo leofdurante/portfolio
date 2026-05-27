@@ -1,17 +1,16 @@
 (function () {
-    // Side navigation with smooth scrolling
+    // Handle side navigation: active state + smooth scroll to section.
     [...document.querySelectorAll(".control")].forEach(button => {
         button.addEventListener("click", function() {
-            // Remove active class from all buttons
+            // Keep only one nav item highlighted at a time.
             document.querySelector(".active-btn").classList.remove("active-btn");
-            // Add active class to clicked button
             this.classList.add("active-btn");
             
-            // Get the section ID to scroll to
+            // Match button data-id to target section id.
             const sectionId = button.dataset.id;
             const section = document.getElementById(sectionId);
             
-            // Smooth scroll to the section
+            // Scroll without page reload.
             if (section) {
                 section.scrollIntoView({ 
                     behavior: 'smooth',
@@ -21,53 +20,53 @@
         })
     });
 
-    // Theme toggle functionality
+    // Toggle between dark and light palettes.
     document.querySelector(".theme-btn").addEventListener("click", () => {
         document.body.classList.toggle("light-mode");
     })
 
-    // Contact form functionality
+    // Contact form submission via EmailJS.
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
-        // Initialize EmailJS with Leonardo's actual User ID
+        // Initialize once before sending messages.
         emailjs.init("qLhpH9o9XT01A-CPd");
         
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form data
+            // Read current form values.
             const formData = new FormData(this);
             const name = formData.get('name');
             const email = formData.get('email');
             const subject = formData.get('subject');
             const message = formData.get('message');
             
-            // Basic validation
+            // Require all fields.
             if (!name || !email || !subject || !message) {
                 showNotification('Please fill in all fields', 'error');
                 return;
             }
             
-            // Email validation
+            // Basic email format validation.
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 showNotification('Please enter a valid email address', 'error');
                 return;
             }
             
-            // Show sending notification
+            // Give immediate UI feedback while sending.
             showNotification('Sending message...', 'info');
             
-            // Prepare email template parameters to match the EmailJS template
+            // Keys must match your EmailJS template variable names.
             const templateParams = {
-                name: name,  // Changed from from_name to match template
-                email: email,  // Changed from from_email to match template
+                name: name,
+                email: email,
                 subject: subject,
                 message: message,
-                time: new Date().toLocaleString()  // Add current time for the template
+                time: new Date().toLocaleString()
             };
             
-            // Send email using EmailJS with Leonardo's actual Template ID
+            // service_id, template_id, params
             emailjs.send('service_rhhprwq', 'template_yx7afdh', templateParams)
                 .then(function(response) {
                     showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
@@ -79,15 +78,15 @@
         });
     }
     
-    // Notification system
+    // Small in-page toast system for success/error/info states.
     function showNotification(message, type = 'info') {
-        // Remove existing notifications
+        // Allow only one visible toast at a time.
         const existingNotification = document.querySelector('.notification');
         if (existingNotification) {
             existingNotification.remove();
         }
         
-        // Create notification element
+        // Render toast container and close button.
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
@@ -97,7 +96,7 @@
             </div>
         `;
         
-        // Add styles
+        // Apply runtime styles based on notification type.
         notification.style.cssText = `
             position: fixed;
             top: 20px;
@@ -112,23 +111,23 @@
             animation: slideIn 0.3s ease-out;
         `;
         
-        // Add close button functionality
+        // Manual dismissal.
         const closeBtn = notification.querySelector('.notification-close');
         closeBtn.addEventListener('click', () => {
             notification.remove();
         });
         
-        // Auto-remove after 5 seconds
+        // Auto-dismiss after 5 seconds.
         setTimeout(() => {
             if (notification.parentNode) {
                 notification.remove();
             }
         }, 5000);
         
-        // Add to page
+        // Mount toast.
         document.body.appendChild(notification);
         
-        // Add CSS animation
+        // Inject keyframes once.
         if (!document.querySelector('#notification-styles')) {
             const style = document.createElement('style');
             style.id = 'notification-styles';
