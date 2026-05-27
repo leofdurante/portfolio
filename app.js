@@ -20,9 +20,17 @@
         })
     });
 
-    // Toggle between dark and light palettes.
-    document.querySelector(".theme-btn").addEventListener("click", () => {
-        document.body.classList.toggle("light-mode");
+    // Default to light mode, but preserve user preference once chosen.
+    const themeBtn = document.querySelector(".theme-btn");
+    const storedTheme = localStorage.getItem("theme");
+    const isLightMode = storedTheme === null || storedTheme === "light";
+
+    document.body.classList.toggle("light-mode", isLightMode);
+
+    // Toggle between dark and light palettes and persist choice.
+    themeBtn.addEventListener("click", () => {
+        const lightModeEnabled = document.body.classList.toggle("light-mode");
+        localStorage.setItem("theme", lightModeEnabled ? "light" : "dark");
     })
 
     // Contact form submission via EmailJS.
