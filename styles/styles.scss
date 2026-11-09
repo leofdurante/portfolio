@@ -883,6 +883,8 @@ i {
 /*Independed components*/
 .btn-con {
     display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
     align-self: flex-start;
 }
 

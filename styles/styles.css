@@ -863,6 +863,8 @@ body.light-mode .contact-content-con .right-contact .input-control textarea::pla
 /*Independed components*/
 .btn-con {
   display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   align-self: flex-start;
 }
 
